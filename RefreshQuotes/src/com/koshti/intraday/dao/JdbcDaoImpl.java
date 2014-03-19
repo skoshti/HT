@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.koshti.intraday.model.Quote;
@@ -13,6 +16,9 @@ import com.koshti.intraday.model.Quote;
 @Component
 public class JdbcDaoImpl {
 
+	@Autowired
+	private DataSource dataSource;
+	
 	public Quote getQuote(String ticker) {
 		Connection conn = null;
 
@@ -20,8 +26,9 @@ public class JdbcDaoImpl {
 
 		try {
 			conn = DriverManager.getConnection(url, "postgres", "tuesday2");
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM Quotes where Ticker = ?");
-			ps.setString(1, ticker);
+		
+//			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM Quotes");
 			Quote quote = null;
 			ResultSet rs = ps.executeQuery();
 
@@ -42,5 +49,13 @@ public class JdbcDaoImpl {
 				conn.close();
 			} catch (SQLException e) {}
 		}
+	}
+
+	public DataSource getDatasource() {
+		return dataSource;
+	}
+
+	public void setDatasource(DataSource dataSource) {
+		this.dataSource = dataSource;
 	}
 }
