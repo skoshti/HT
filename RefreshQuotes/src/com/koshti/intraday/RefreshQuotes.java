@@ -17,7 +17,7 @@ public class RefreshQuotes {
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
 		JdbcDaoImpl dao = context.getBean("jdbcDaoImpl", JdbcDaoImpl.class);
 		
-		Quote quote = new JdbcDaoImpl().getQuote(args[0]);
+		Quote quote = dao.getQuote(args[0]);
 		
 		System.out.println(quote.getTicker());
 		

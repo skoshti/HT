@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.koshti.intraday.model.Quote;
@@ -13,6 +16,8 @@ import com.koshti.intraday.model.Quote;
 @Component
 public class JdbcDaoImpl {
 
+		private DataSource dataSource;
+	
 	public Quote getQuote(String ticker) {
 		Connection conn = null;
 
