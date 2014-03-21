@@ -16,15 +16,14 @@ import com.koshti.intraday.model.Quote;
 @Component
 public class JdbcDaoImpl {
 
-		private DataSource dataSource;
+	@Autowired	
+	private DataSource dataSource;
 	
 	public Quote getQuote(String ticker) {
 		Connection conn = null;
 
-		String url = "jdbc:postgresql://localhost:5432/postgres";		
-
 		try {
-			conn = DriverManager.getConnection(url, "postgres", "tuesday2");
+			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM Quotes where Ticker = ?");
 			ps.setString(1, ticker);
 			Quote quote = null;
@@ -48,4 +47,12 @@ public class JdbcDaoImpl {
 			} catch (SQLException e) {}
 		}
 	}
+
+	public void setDataSource(DataSource ds) {
+		this.dataSource = ds;
+	}
+	public DataSource getDataSource() {
+		return dataSource;
+	}
+
 }
