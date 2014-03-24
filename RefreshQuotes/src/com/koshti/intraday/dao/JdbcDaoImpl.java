@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.koshti.intraday.model.Quote;
@@ -18,6 +19,7 @@ public class JdbcDaoImpl {
 
 	@Autowired	
 	private DataSource dataSource;
+	private JdbcTemplate jdbcTemplate = new JdbcTemplate();
 	
 	public Quote getQuote(String ticker) {
 		Connection conn = null;
@@ -53,6 +55,14 @@ public class JdbcDaoImpl {
 	}
 	public DataSource getDataSource() {
 		return dataSource;
+	}
+
+	public JdbcTemplate getJdbcTemplate() {
+		return jdbcTemplate;
+	}
+
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
 	}
 
 }
