@@ -52,5 +52,8 @@ public class Quote {
 		setClose(close);
 		setLast(last);
 	}
+	public Quote() {
+
+	}
 }
 

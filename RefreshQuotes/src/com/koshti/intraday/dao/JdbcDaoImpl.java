@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import com.koshti.intraday.model.Quote;
@@ -17,41 +18,19 @@ import com.koshti.intraday.model.Quote;
 @Component
 public class JdbcDaoImpl {
 
-	@Autowired	
 	private DataSource dataSource;
 	private JdbcTemplate jdbcTemplate = new JdbcTemplate();
 	
 	public Quote getQuote(String ticker) {
-		Connection conn = null;
 
-		try {
-			conn = dataSource.getConnection();
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM Quotes where Ticker = ?");
-			ps.setString(1, ticker);
-			Quote quote = null;
-			ResultSet rs = ps.executeQuery();
-
-			if (rs.next()) {
-				quote = new Quote(rs.getString("ticker"), rs.getDouble("open"), rs.getDouble("min"), rs.getDouble("max"), rs.getDouble("close"), rs.getDouble("last"));
-			}
-			
-			rs.close();
-			ps.close();
-		
-			return quote;
-		}
-		catch(Exception e) {
-			throw new RuntimeException(e);
-		}
-		finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {}
-		}
+		String sql = "SELECT * FROM Quotes where ticker = ?";
+		return jdbcTemplate.queryForObject(sql, new Object[] {ticker}, new QuoteMapper());
+				
 	}
 
+	@Autowired
 	public void setDataSource(DataSource ds) {
-		this.dataSource = ds;
+		this.jdbcTemplate = new JdbcTemplate(ds);
 	}
 	public DataSource getDataSource() {
 		return dataSource;
@@ -65,4 +44,19 @@ public class JdbcDaoImpl {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
+	private static final class QuoteMapper implements RowMapper<Quote> {
+
+		@Override
+		public Quote mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+			Quote quote = new Quote();
+			quote.setTicker(resultSet.getString("ticker"));
+			quote.setOpen(resultSet.getDouble("open"));
+			quote.setOpen(resultSet.getDouble("min"));
+			quote.setOpen(resultSet.getDouble("max"));
+			quote.setOpen(resultSet.getDouble("close"));
+			quote.setOpen(resultSet.getDouble("last"));
+			return quote;
+		}
+		
+	}
 }
