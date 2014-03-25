@@ -1,5 +1,7 @@
 package com.koshti.intraday;
 
+import java.util.List;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -17,9 +19,7 @@ public class RefreshQuotes {
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
 		JdbcDaoImpl dao = context.getBean("jdbcDaoImpl", JdbcDaoImpl.class);
 		
-		Quote quote = dao.getQuote(args[0]);
-		
-		System.out.println(quote.getTicker());
+		List<Quote> quote = dao.getAllQuotes();
 		
 		if (args.length != 1) {
 			System.out.println("You need to pass in the Ticker Symbol");

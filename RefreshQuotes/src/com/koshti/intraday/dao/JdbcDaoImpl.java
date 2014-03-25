@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -26,6 +27,11 @@ public class JdbcDaoImpl {
 		String sql = "SELECT * FROM Quotes where ticker = ?";
 		return jdbcTemplate.queryForObject(sql, new Object[] {ticker}, new QuoteMapper());
 				
+	}
+
+	public List<Quote> getAllQuotes() {
+		String sql = "SELECT * FROM Quotes";
+		return jdbcTemplate.query(sql, new QuoteMapper());
 	}
 
 	@Autowired
