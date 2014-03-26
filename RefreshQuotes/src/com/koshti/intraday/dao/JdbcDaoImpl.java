@@ -12,42 +12,24 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Component;
 
 import com.koshti.intraday.model.Quote;
 
 @Component
-public class JdbcDaoImpl {
+public class JdbcDaoImpl extends JdbcDaoSupport {
 
-	private DataSource dataSource;
-	private JdbcTemplate jdbcTemplate = new JdbcTemplate();
-	
 	public Quote getQuote(String ticker) {
 
 		String sql = "SELECT * FROM Quotes where ticker = ?";
-		return jdbcTemplate.queryForObject(sql, new Object[] {ticker}, new QuoteMapper());
+		return this.getJdbcTemplate().queryForObject(sql, new Object[] {ticker}, new QuoteMapper());
 				
 	}
 
 	public List<Quote> getAllQuotes() {
 		String sql = "SELECT * FROM Quotes";
-		return jdbcTemplate.query(sql, new QuoteMapper());
-	}
-
-	@Autowired
-	public void setDataSource(DataSource ds) {
-		this.jdbcTemplate = new JdbcTemplate(ds);
-	}
-	public DataSource getDataSource() {
-		return dataSource;
-	}
-
-	public JdbcTemplate getJdbcTemplate() {
-		return jdbcTemplate;
-	}
-
-	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
+		return this.getJdbcTemplate().query(sql, new QuoteMapper());
 	}
 
 	private static final class QuoteMapper implements RowMapper<Quote> {

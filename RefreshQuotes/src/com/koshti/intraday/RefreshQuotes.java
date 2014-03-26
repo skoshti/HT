@@ -36,24 +36,5 @@ public class RefreshQuotes {
 				System.out.println("Web service error");
 			}
 		}
-/*
-		if (args.length != 1) {
-			System.out.println("You need to pass in the Ticker Symbol");
-		}
-		else {
-			String symbol = args[0];
-			StockQuoteService stockQuoteService = new StockQuoteService();
-			IStockQuoteService iStockQuoteService = stockQuoteService.getBasicHttpBindingIStockQuoteService();
-			try {
-			StockQuote stockQuote = iStockQuoteService.getStockQuote(symbol);
-			String lastPrice = stockQuote.getLast().getValue();
-			System.out.println(lastPrice);
-			}
-			catch (IStockQuoteServiceGetStockQuoteDefaultFaultContractFaultFaultMessage e) {
-				System.out.println("Web service error");
-			}
-			
-		}
-*/
 	}
 }
