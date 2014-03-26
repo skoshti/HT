@@ -1,5 +1,6 @@
 package com.koshti.intraday;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;
@@ -19,8 +20,23 @@ public class RefreshQuotes {
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
 		JdbcDaoImpl dao = context.getBean("jdbcDaoImpl", JdbcDaoImpl.class);
 		
-		List<Quote> quote = dao.getAllQuotes();
+		List<Quote> quotes = dao.getAllQuotes();
 		
+		Iterator<Quote> iterator = quotes.iterator();
+		while (iterator.hasNext()) {
+			String symbol = iterator.next().getTicker();
+			StockQuoteService stockQuoteService = new StockQuoteService();
+			IStockQuoteService iStockQuoteService = stockQuoteService.getBasicHttpBindingIStockQuoteService();
+			try {
+				StockQuote stockQuote = iStockQuoteService.getStockQuote(symbol);
+				String lastPrice = stockQuote.getLast().getValue();
+				System.out.println(lastPrice);
+			}
+			catch (IStockQuoteServiceGetStockQuoteDefaultFaultContractFaultFaultMessage e) {
+				System.out.println("Web service error");
+			}
+		}
+/*
 		if (args.length != 1) {
 			System.out.println("You need to pass in the Ticker Symbol");
 		}
@@ -38,5 +54,6 @@ public class RefreshQuotes {
 			}
 			
 		}
+*/
 	}
 }
