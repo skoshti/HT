@@ -21,7 +21,10 @@ public class RefreshQuotes {
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
 		HibernateDaoImpl dao = context.getBean("hibernateDaoImpl", HibernateDaoImpl.class);
 		
-		List<Quote> quotes = dao.getAllQuotes();
+		Quote quote = dao.getQuote("AAPL");
+		System.out.println(quote.getLast());
+		
+/*		List<Quote> quotes = dao.getAllQuotes();
 		
 		Iterator<Quote> iterator = quotes.iterator();
 		while (iterator.hasNext()) {
@@ -36,6 +39,6 @@ public class RefreshQuotes {
 			catch (IStockQuoteServiceGetStockQuoteDefaultFaultContractFaultFaultMessage e) {
 				System.out.println("Web service error");
 			}
-		}
+		}*/
 	}
 }

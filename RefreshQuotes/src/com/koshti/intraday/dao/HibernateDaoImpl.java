@@ -16,7 +16,7 @@ public class HibernateDaoImpl {
 	private SessionFactory sessionFactory;
 
 	public Quote getQuote(String ticker) {
-		String hql = "SELECT * FROM Quotes where ticker = ?";
+		String hql = "SELECT * FROM Quotes where ticker = " + ticker;
 		Query query = getSessionFactory().openSession().createQuery(hql);
 		return (Quote) query.uniqueResult();
 				
