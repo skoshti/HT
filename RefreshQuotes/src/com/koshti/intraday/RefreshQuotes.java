@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.koshti.intraday.dao.HibernateDaoImpl;
 import com.koshti.intraday.dao.JdbcDaoImpl;
 import com.koshti.intraday.model.Quote;
 
@@ -18,7 +19,7 @@ public class RefreshQuotes {
 
 	public static void main(String[] args) {
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
-		JdbcDaoImpl dao = context.getBean("jdbcDaoImpl", JdbcDaoImpl.class);
+		HibernateDaoImpl dao = context.getBean("hibernateDaoImpl", HibernateDaoImpl.class);
 		
 		List<Quote> quotes = dao.getAllQuotes();
 		

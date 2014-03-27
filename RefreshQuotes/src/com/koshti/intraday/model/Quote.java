@@ -1,5 +1,9 @@
 package com.koshti.intraday.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Quote {
 	private String ticker;
 	private double open;
@@ -8,6 +12,7 @@ public class Quote {
 	private double close;
 	private double last;
 	
+	@Id
 	public String getTicker() {
 		return ticker;
 	}
