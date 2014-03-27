@@ -21,11 +21,13 @@ public class HibernateDaoImpl {
 		return (Quote) query.uniqueResult();
 				
 	}
-/*
+
 	public List<Quote> getAllQuotes() {
-		String sql = "SELECT * FROM Quotes";
+		String hql = "SELECT * FROM Quotes";
+		Query query = getSessionFactory().openSession().createQuery(hql);
+		return (List<Quote>) query.list();
 	}
-*/
+
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
