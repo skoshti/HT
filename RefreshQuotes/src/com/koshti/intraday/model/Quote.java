@@ -1,6 +1,13 @@
 package com.koshti.intraday.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Quotes")
 public class Quote {
+	@Id
 	private String ticker;
 	private double open;
 	private double min;
