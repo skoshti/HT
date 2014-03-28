@@ -15,6 +15,7 @@ public class Quote {
 	private double close;
 	private double last;
 	
+	@Id
 	public String getTicker() {
 		return ticker;
 	}

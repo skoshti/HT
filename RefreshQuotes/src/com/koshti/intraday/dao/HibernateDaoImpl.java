@@ -15,7 +15,6 @@ public class HibernateDaoImpl {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-
 	public List<Quote> getAllQuotes() {
 		String hql = "from Quote";
 		Query query = getSessionFactory().openSession().createQuery(hql);
