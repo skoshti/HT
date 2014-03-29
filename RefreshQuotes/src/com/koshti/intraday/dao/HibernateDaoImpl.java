@@ -18,8 +18,7 @@ public class HibernateDaoImpl {
 	public List<Quote> getAllQuotes() {
 		String hql = "from Quote";
 		Query query = getSessionFactory().openSession().createQuery(hql);
-		return (List<Quote>) query.list();
-				
+		return (List<Quote>) query.list();			
 	}
 
 	public Long getCountOfQuotes() {
