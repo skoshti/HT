@@ -28,13 +28,17 @@ public class RefreshQuotes {
 		Iterator<Quote> iterator = dao.getAllQuotes().iterator();
 		
 		while (iterator.hasNext()) {
-			String symbol = iterator.next().getTicker();
+			Quote quote = iterator.next();
+			String symbol = quote.getTicker();
 			StockQuoteService stockQuoteService = new StockQuoteService();
 			IStockQuoteService iStockQuoteService = stockQuoteService.getBasicHttpBindingIStockQuoteService();
 			try {
 				StockQuote stockQuote = iStockQuoteService.getStockQuote(symbol);
-				String lastPrice = stockQuote.getLast().getValue();
-				System.out.println(lastPrice);
+				quote.setOpen(Double.parseDouble(stockQuote.getOpen().getValue()));
+				quote.setMin(Double.parseDouble(stockQuote.getLow().getValue()));
+				quote.setMax(Double.parseDouble(stockQuote.getHigh().getValue()));
+				quote.setClose(Double.parseDouble(stockQuote.getPreviousClose().getValue()));
+				quote.setLast(Double.parseDouble(stockQuote.getLast().getValue()));
 			}
 			catch (IStockQuoteServiceGetStockQuoteDefaultFaultContractFaultFaultMessage e) {
 				System.out.println("Web service error");
