@@ -28,17 +28,24 @@ public class HibernateDaoImpl {
 	}
 	
 	public int updateQuote(Quote quote) {
-		String hql = "update com.koshti.intraday.model.Quote q set q.open=:open, q.min=:min, q.max=:max, q.close=:close, q.last=:last" +
-				"where q.ticker = :ticker";
+		String hql = "update Quote set open=:open, min=:min " +
+/*
+				"min=:min) " +
+ 				"max=:max, " +
+				"close=:close, " +
+				"last=:last " +
+*/
+				"where ticker=:ticker";
 		Query query = getSessionFactory().openSession().createQuery(hql);
 		
 		query.setParameter("open", quote.getOpen());
 		query.setParameter("min", quote.getMin());
+/*
 		query.setParameter("max", quote.getMax());
 		query.setParameter("close", quote.getClose());
 		query.setParameter("last", quote.getLast());
+*/
 		query.setParameter("ticker", quote.getTicker());
-		
 		return (query.executeUpdate());
 		
 	}
