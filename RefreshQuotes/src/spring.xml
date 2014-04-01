@@ -28,10 +28,10 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="packagesToScan" value="com.koshti.intraday.model" />
 		<property name="hibernateProperties">
-			<props>
-				<prop key="dialect">org.hibernate.dialect.ProgreSQLDialect</prop>
-			</props>
+			<value>
+				hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+				show_sql="true" />
+			</value>
 		</property>
 	</bean>
-	
 </beans>

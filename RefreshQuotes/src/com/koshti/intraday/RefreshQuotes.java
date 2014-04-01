@@ -36,8 +36,8 @@ public class RefreshQuotes {
 				StockQuote stockQuote = iStockQuoteService.getStockQuote(symbol);
 				System.out.println(stockQuote.getOpen().getValue());
 				quote.setOpen(Double.parseDouble(stockQuote.getOpen().getValue()));
-				quote.setMin(Double.parseDouble(stockQuote.getLow().getValue()));
-				quote.setMax(Double.parseDouble(stockQuote.getHigh().getValue()));
+				quote.setMinimum(Double.parseDouble(stockQuote.getLow().getValue()));
+				quote.setMaximum(Double.parseDouble(stockQuote.getHigh().getValue()));
 				quote.setClose(Double.parseDouble(stockQuote.getPreviousClose().getValue()));
 				quote.setLast(Double.parseDouble(stockQuote.getLast().getValue()));
 				
