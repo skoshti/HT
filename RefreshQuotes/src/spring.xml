@@ -17,7 +17,7 @@
 		<property name="username" value="postgres"/>
 		<property name="password" value="tuesday2"/>
 		<property name="initialSize" value="2" />
-		<property name="maxTotal" value="5" />
+		<property name="maxTotal" value="6" />
 	</bean>
 	
 	<bean id="jdbcDaoImpl" class="com.koshti.intraday.dao.JdbcDaoImpl">
