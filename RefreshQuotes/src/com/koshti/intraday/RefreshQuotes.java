@@ -22,8 +22,8 @@ public class RefreshQuotes {
 		JdbcDaoImpl dao1 = context.getBean("jdbcDaoImpl", JdbcDaoImpl.class);
 		HibernateDaoImpl dao = context.getBean("hibernateDaoImpl", HibernateDaoImpl.class);
 		
-		Long count = dao.getCountOfQuotes();
-		System.out.println(count);
+//		Long count = dao.getCountOfQuotes();
+//		System.out.println(count);
 
 		Iterator<Quote> iterator = dao.getAllQuotes().iterator();
 		

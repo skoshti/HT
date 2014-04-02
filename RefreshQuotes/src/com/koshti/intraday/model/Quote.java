@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Quotes")
+@Table(name="quotes")
 public class Quote {
 	@Id
 	private String ticker;
