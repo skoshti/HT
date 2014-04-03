@@ -13,7 +13,7 @@
 
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName" value="org.postgresql.Driver"/>
-		<property name="url" value="jdbc:postgresql://localhost:5432/Horse Trading"/>
+		<property name="url" value="jdbc:postgresql://localhost:5432/postgres"/>
 		<property name="username" value="postgres"/>
 		<property name="password" value="tuesday2"/>
 		<property name="initialSize" value="2" />
@@ -30,6 +30,7 @@
 		<property name="hibernateProperties">
 			<value>
 				hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+				connection.release_mode=after_statement 
 				show_sql="true" />
 			</value>
 		</property>

@@ -3,6 +3,7 @@ package com.koshti.intraday.dao;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -27,14 +28,15 @@ public class HibernateDaoImpl {
 		return (Long) query.uniqueResult(); 
 	}
 	
-	public int updateQuote(Quote quote) {
+	public void updateQuote(Quote quote) {
 		String hql = "update Quote set open=:open, " +
 				"minimum=:minimum, " +
  				"maximum=:maximum, " +
 				"close=:close, " +
 				"last=:last " +
 				"where ticker=:ticker";
-		Query query = getSessionFactory().openSession().createQuery(hql);
+		Session session = getSessionFactory().openSession();
+		Query query = session.createQuery(hql);
 		
 		query.setParameter("open", quote.getOpen());
 		query.setParameter("minimum", quote.getMinimum());
@@ -42,7 +44,9 @@ public class HibernateDaoImpl {
 		query.setParameter("close", quote.getClose());
 		query.setParameter("last", quote.getLast());
 		query.setParameter("ticker", quote.getTicker());
-		return (query.executeUpdate());
+		query.executeUpdate();
+		
+		session.close();
 		
 	}
 	public void setSessionFactory(SessionFactory sessionFactory) {

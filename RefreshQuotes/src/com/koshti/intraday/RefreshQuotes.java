@@ -41,7 +41,7 @@ public class RefreshQuotes {
 				quote.setClose(Double.parseDouble(stockQuote.getPreviousClose().getValue()));
 				quote.setLast(Double.parseDouble(stockQuote.getLast().getValue()));
 				
-				int i = dao.updateQuote(quote);
+				dao.updateQuote(quote);
 				
 			}
 			catch (IStockQuoteServiceGetStockQuoteDefaultFaultContractFaultFaultMessage e) {
