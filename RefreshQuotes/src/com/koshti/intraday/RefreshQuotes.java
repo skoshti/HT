@@ -30,11 +30,16 @@ public class RefreshQuotes {
 		while (iterator.hasNext()) {
 			Quote quote = iterator.next();
 			String symbol = quote.getTicker();
+	
+			System.out.println(symbol);
+			
 			StockQuoteService stockQuoteService = new StockQuoteService();
 			IStockQuoteService iStockQuoteService = stockQuoteService.getBasicHttpBindingIStockQuoteService();
 			try {
 				StockQuote stockQuote = iStockQuoteService.getStockQuote(symbol);
+			
 				System.out.println(stockQuote.getOpen().getValue());
+				
 				quote.setOpen(Double.parseDouble(stockQuote.getOpen().getValue()));
 				quote.setMinimum(Double.parseDouble(stockQuote.getLow().getValue()));
 				quote.setMaximum(Double.parseDouble(stockQuote.getHigh().getValue()));
